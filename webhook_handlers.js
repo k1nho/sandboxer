@@ -20,7 +20,7 @@ const on_pr_opened = app.webhooks.on(
       owner: payload.repository.owner.login,
       repo: payload.repository.name,
       body: prMsg,
-      issue_number: payload.issue.number,
+      issue_number: payload.number,
     });
   }
 );
