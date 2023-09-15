@@ -1,5 +1,5 @@
 const { app } = require(".");
-const { genericMsg } = require("./welcome");
+const { genericMsg, prMsg } = require("./welcome");
 
 const on_issue_opened = app.webhooks.on(
   "issues.opened",
@@ -13,4 +13,17 @@ const on_issue_opened = app.webhooks.on(
   }
 );
 
+const on_pr_opened = app.webhooks.on(
+  "pull_request.opened",
+  async ({ octokit, payload }) => {
+    await octokit.rest.issues.createComment({
+      owner: payload.repository.owner.login,
+      repo: payload.repository.name,
+      body: prMsg,
+      issue_number: payload.number,
+    });
+  }
+);
+
 exports.on_issue_opened = on_issue_opened;
+exports.on_pr_opened = on_pr_opened;
