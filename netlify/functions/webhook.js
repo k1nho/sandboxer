@@ -1,7 +1,9 @@
 const { app } = require("../..");
-const { on_issue_opened } = require("../../webhook_handlers");
+const { on_issue_opened, on_pr_opened } = require("../../webhook_handlers");
 
+// webhooks
 on_issue_opened;
+on_pr_opened;
 
 const handler = async (event) => {
   try {
